@@ -1,0 +1,414 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    background-image: url("/webapp/img/diamond_background.jpg");
+    background-repeat: repeat-x;
+    background-color: rgb(230, 235, 238);
+}
+
+a {
+    color: rgb(61, 137, 204);
+}
+
+.bodyRegularFont {
+    font-size: 1.0em;
+    font-family: 'Lato', sans-serif;
+}
+
+.bodyItalicFont {
+    font-size: 1.0em;
+    font-family: 'Lato', sans-serif;
+}
+
+.pageHeader {
+    width: 100%;
+    min-height: 185px;
+    background-color: rgb(70, 70, 70);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+    top: 0;
+    position: absolute;
+}
+
+.pageContent {
+    margin-top: 300px;
+}
+
+.pageHeaderTitle {
+    width: 100%;
+    height: 185px;
+}
+
+.pageHeaderTitle h1 {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 50px;
+    text-transform: uppercase;
+    color: rgb(255, 254, 216);
+}
+
+.pageHeaderBreadcrumb {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 90px;
+    color: white;
+}
+
+.pageHeaderBreadcrumb a {
+    color: white;
+}
+
+.pageHeaderBreadcrumb ul {
+    margin: 0;
+    padding: 0;
+}
+
+.pageHeaderBreadcrumb li {
+    display: inline-block;
+}
+
+.pageHeaderSubnav {
+    width: 100%;
+    height: 50px;
+    background-color: rgb(244, 244, 244);
+}
+
+.pageHeaderSubnav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.pageHeaderSubnav li {
+    margin: 15px 0 0 0;
+    padding: 0 30px;
+    display: inline-block;
+    height: 32px;
+}
+
+.pageHeaderSubnavActive {
+    border-bottom: 3px solid rgb(112, 208, 77);
+}
+
+.centered-content {
+    width: 1000px;
+    margin: 10px auto;
+}
+
+.centered-content-narrow {
+    width: 864px;
+    margin: 10px auto;
+    padding: 10px;
+}
+
+.centered-content-more-narrow {
+    width: 70%;
+    margin: 10px auto;
+    padding: 10px;
+}
+
+.titleBar {
+    width: 90%;
+    margin: 20px 5%;
+    padding: 10px 0;
+    text-align: center;
+    color: white;
+    border-bottom: 1px solid white;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+    font-size: 14pt;
+    font-weight: bold;
+}
+
+.descriptionBar {
+    width: 90%;
+    margin: 10px 5%;
+    text-align: center;
+    color: white;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.pinnedAlbums {
+    position: absolute;
+    z-index: 512;
+    bottom: 15px;
+    left: 20px;
+    width: 600px;
+    height: 130px;
+}
+
+.pinnedAlbums > img {
+    border: 1px solid rgba(255, 255, 255, 1.0);
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.5);
+    margin-right: 10px;
+}
+
+.pinnedAlbumsTitle {
+    margin: 0 0 5px 0;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+    font-size: 11pt;
+}
+
+.playerControls {
+    background-color: rgb(70, 70, 70);
+    position: fixed;
+    z-index: 512;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    height: 100px;
+    border: 1px solid rgba(255, 255, 255, 1.0);
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.5);
+}
+
+.playerControls > div:nth-child(2){
+    text-align: center;
+}
+
+.playerControlsTitle {
+    color: white;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    font-size: 10pt;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.listing {
+    border: none;
+    margin-top: 30px;
+}
+
+.listing fieldset {
+    border: none;
+}
+
+.listing legend {
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+    color: white;
+}
+
+.listing table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: rgb(247,247,247);
+    padding: 10px 0;
+    font-size: 0.9em;
+    border: 1px solid white;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.listing th,
+.listing td {
+    padding: 15px 0;
+}
+
+.listing table > tbody > tr:nth-child(odd) > td {
+    background-color:rgb(200, 200, 200);
+}
+
+.listing table > tbody > tr:nth-child(even) > td {
+    background-color: rgb(247, 247, 247);
+}
+
+.album-listing table > thead > tr > th:nth-child(1),
+.album-listing table > tbody > tr > td:nth-child(1) {
+    width: 70%;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.album-listing table > thead > tr > th:nth-child(2),
+.album-listing table > tbody > tr > td:nth-child(2) {
+    width: 30%;
+    text-align: left;
+}
+
+.collection-listing table > thead > tr > th:nth-child(1),
+.collection-listing table > tbody > tr > td:nth-child(1) {
+    width: 100%;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.playlist-listing table > thead > tr > th:nth-child(1),
+.playlist-listing table > tbody > tr > td:nth-child(1) {
+    width: 100%;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.track-listing table > thead > tr > th:nth-child(1),
+.track-listing table > tbody > tr > td:nth-child(1) {
+    width: 8%;
+    text-align: center;
+}
+
+.track-listing table > thead > tr > th:nth-child(2),
+.track-listing table > tbody > tr > td:nth-child(2) {
+    width: 40%;
+    text-align: left;
+}
+
+.track-listing table > thead > tr > th:nth-child(3),
+.track-listing table > tbody > tr > td:nth-child(3) {
+    width: 7%;
+    text-align: center;
+}
+
+.track-listing table > thead > tr > th:nth-child(4),
+.track-listing table > tbody > tr > td:nth-child(4) {
+    width: 40%;
+    text-align: left;
+}
+
+.listPlaybackButton {
+    border: none;
+    background: none;
+}
+
+.listPlaybackButton i {
+    color: black;
+}
+
+.trackListingTrackTitle {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.trackListingTrackTitle:hover {
+    text-decoration: underline;
+}
+
+.playerControlsControlStrip {
+    width: 100%;
+    height: 40px;
+    position: absolute;
+    bottom: 0;
+}
+
+.playerControlsButton {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.1);
+    margin: 0;
+    padding: 0;
+    color: rgb(112, 208, 77);
+    width: 90px;
+    height: 30px;
+    left: 110px;
+    position: absolute;
+    font-size: 10pt;
+    font-weight: bold;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+.loginPanel {
+    width: 500px;
+    margin: 100px auto 0 auto;
+    background-color: rgb(244, 244, 244);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+.loginPanelHeader {
+    background-color: rgb(70, 70, 70);
+    padding: 50px 0;
+    color: white;
+    border: 1px solid black;
+}
+
+.loginPanelHeader > h1,
+.loginPanelHeader > p {
+    margin: 5px 30px;
+}
+
+.loginPanelHeader > h1 {
+    color: rgb(142, 239, 104);
+    text-transform: uppercase;
+}
+
+.loginPanelBody {
+    padding: 30px 0;
+    min-height: 350px;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+}
+
+.loginPanelBody fieldset {
+    border: none;
+    margin: 5px 30px;
+}
+
+.loginPanelBody legend {
+    font-weight: bold;
+}
+
+.loginPanelBody table {
+    border-collapse: collapse;
+    width: 440px;
+    margin: 10px 0;
+}
+
+.loginPanelBody table > tbody > tr > td:nth-child(1) {
+    width: 30%;
+    text-align: right;
+    padding: 5px 0;
+}
+
+.loginPanelBody table > tbody > tr > td:nth-child(2) {
+    width: 70%;
+    text-align: left;
+    padding: 5px 10px 5px 20px;
+}
+
+.loginPanelControls {
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    border-bottom: 1px solid white;
+    display: table;
+    width: 498px;
+    height: 50px;
+    background-color: white;
+}
+
+.loginPanelControls > div {
+    display: table-row;
+}
+
+.loginPanelControls > div > div:nth-child(1) {
+    display: table-cell;
+    text-align: left;
+    width: 50%;
+}
+
+.loginPanelControls > div > div:nth-child(2) {
+    display: table-cell;
+    text-align: right;
+    width: 50%;
+}
+
+.loginPanelControls button {
+    border: none;
+    background-color: white;
+    height: 50px;
+    width: 110px;
+    border-bottom: 3px solid rgb(112, 208, 77);
+    font-weight: bold;
+    font-size: 10pt;
+    color: rgb(95, 178, 251);
+}
+
+input[type=text],
+input[type=password] {
+    border: 1px solid gray;
+    width: 300px;
+    height: 25px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}

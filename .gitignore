@@ -1,0 +1,13 @@
+/album-detail/
+/dist/
+/collections/
+/playlists/
+/media/
+/src/collections/
+/src/playlists/
+albums.html
+collections.html
+index.html
+login.html
+playlists.html
+/env/

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Music Archive - {{playlist.title}}</title>
+
+    <link href="/webapp/css/styles.css" rel="stylesheet">
+
+    <script type="text/javascript">
+        var tracks = [];
+        let currentPlayIndex = 0;
+        let playFlowStarted = false;
+
+        class Page {
+            setPlayerControlsPlaying() {
+                document.getElementById("playerControlsPauseButton").style.display = "inline-block";
+                document.getElementById("playerControlsPlayButton").style.display = "none";
+            }
+
+            setPlayerControlsPaused() {
+                document.getElementById("playerControlsPauseButton").style.display = "none";
+                document.getElementById("playerControlsPlayButton").style.display = "inline-block";
+            }
+
+            playTrack(sender) {
+                let selectedTrackIndex = parseInt(sender.dataset.index);
+                let audioPlayer = document.getElementById("audioPlayer");
+                let playerControlsTitle = document.getElementById("playerControlsTitle");
+                audioPlayer.src = tracks[selectedTrackIndex].url;
+                playerControlsTitle.innerText = "Now Playing: " + tracks[selectedTrackIndex].title;
+                currentPlayIndex = selectedTrackIndex;
+                audioPlayer.play();
+                playFlowStarted = true;
+                this.setPlayerControlsPlaying();
+
+                audioPlayer.onplay = function() {
+                    page.setPlayerControlsPlaying();
+                };
+
+                audioPlayer.onpause = function() {
+                    page.setPlayerControlsPaused();
+                };
+
+                // The only reason we have to add this is because of a
+                // known bug in Safari. How embarrassing!
+                // https://stackoverflow.com/a/27284512
+                audioPlayer.onloadedmetadata = function() {
+                    let audioPlayer = document.getElementById("audioPlayer");
+                    audioPlayer.currentTime = 0.001;
+                    audioPlayer.play();
+                };
+
+                audioPlayer.onended = function() {
+                    if (currentPlayIndex <= tracks.length) {
+                        currentPlayIndex += 1;
+                        audioPlayer.src = tracks[currentPlayIndex].url;
+                        playerControlsTitle.innerText = "Now Playing: " + tracks[currentPlayIndex].title;
+                        audioPlayer.play();
+                    } else {
+                        playerControlsTitle.innerText = "Stopped";
+                        page.setPlayerControlsPaused();
+                        playFlowStarted = false;
+                    }
+                };
+            }
+
+            toggleAudio() {
+                let audioPlayer = document.getElementById("audioPlayer");
+
+                if (!playFlowStarted) {
+                    audioPlayer.src = tracks[currentPlayIndex].url;
+                    let playerControlsTitle = document.getElementById("playerControlsTitle");
+                    playerControlsTitle.innerText = "Now Playing: " + tracks[currentPlayIndex].title;
+                    audioPlayer.play();
+                    page.setPlayerControlsPlaying();
+                    playFlowStarted = true;
+                } else {
+                    if (audioPlayer.paused) {
+                        audioPlayer.play();
+                        page.setPlayerControlsPlaying();
+                        playFlowStarted = true;
+                    } else {
+                        audioPlayer.pause();
+                        page.setPlayerControlsPaused();
+                    }
+                }
+
+            }
+        }
+
+        const page = new Page();
+
+        function initializePlayer() {
+            const domTracks = document.getElementsByClassName("trackListingTrackTitle");
+            for (let x = 0; x < domTracks.length; x+=1) {
+                tracks.push({
+                    "index": domTracks[x].dataset.index,
+                    "title":  domTracks[x].dataset.title,
+                    "url": domTracks[x].dataset.path,
+                });
+            }
+        }
+    </script>
+</head>
+<body onload="initializePlayer()">
+<div id="playerApp">
+    <div class="pageHeader">
+        <div class="pageHeaderTitle">
+            <div class="centered-content">
+                <h1>{{playlist.title}}</h1>
+
+                <div class="pageHeaderBreadcrumb">
+                    <ul>
+                        <li><a href="/playlists.html">Home</a></li>
+                        <li>/</li>
+                        <li>{{playlist.title}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="pageHeaderSubnav">
+            <div class="centered-content">
+                <ul>
+                    <li class="pageHeaderSubnavActive">Track Listing</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <audio src="" id="audioPlayer"></audio>
+
+    <div class="pageContent">
+        <div class="centered-content listing track-listing">
+            <table>
+                <thead>
+                <tr>
+                    <th>Track No.</th>
+                    <th>Song</th>
+                    <th>Time</th>
+                    <th>Artist</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for track in playlist.playlist_tracks -%}
+                <tr>
+                    <td>
+                        {{loop.index}}
+                    </td>
+                    <td>
+                        <span
+                                href="#"
+                                data-index="{{loop.index0}}"
+                                class="trackListingTrackTitle"
+                                data-path="/media/{{track.artist_name}}/{{track.album_title}}/{{"%02d"|format(track.track_no)}} {{track.title}}.mp3"
+                        data-title="{{track.title}}"
+                        onclick="page.playTrack(this); return false;">
+                        {{track.title}}
+                        </span>
+                    </td>
+                    <td></td>
+                    <td>{{track.artist_name}}</td>
+                </tr>
+                {%- endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <!--        <div class="pinnedAlbums">-->
+    <!--            <div class="pinnedAlbumsTitle">Pinned</div>-->
+    <!--            <img src="img/hard_fi.jpg" width="100" height="100">-->
+    <!--            <img src="img/lord_huron.jpg" width="100" height="100">-->
+    <!--            <img src="img/steve_miller_band.jpg" width="100" height="100">-->
+    <!--            <img src="img/the_killers.jpg" width="100" height="100">-->
+    <!--            <img src="img/van_halen.jpg" width="100" height="100">-->
+    <!--        </div>-->
+
+    <div class="playerControls">
+        <div class="playerControlsTitle">
+            <span id="playerControlsTitle">Stopped</span>
+        </div>
+        <div class="playerControlsControlStrip">
+            <button
+                    type="button"
+                    class="playerControlsButton"
+                    id="playerControlsPlayButton"
+                    onclick="page.toggleAudio()"
+            >
+                Play
+            </button>
+            <button
+                    type="button"
+                    class="playerControlsButton"
+                    id="playerControlsPauseButton"
+                    style="display: none;"
+                    onclick="page.toggleAudio()"
+            >
+                Pause
+            </button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

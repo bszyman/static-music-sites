@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Music Archive</title>
+
+    <link href="/webapp/css/styles.css" rel="stylesheet">
+</head>
+<body>
+<div id="playerApp">
+    <div class="pageHeader">
+        <div class="pageHeaderTitle">
+            <div class="centered-content">
+                <h1>Music Archive</h1>
+
+                <div class="pageHeaderBreadcrumb">
+                    <ul>
+                        <li>Home</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="pageHeaderSubnav">
+            <div class="centered-content">
+                <ul>
+                    <li><a href="index.html">Favorites</a></li>
+                    <li><a href="/playlists.html">Playlists</a></li>
+                    <li class="pageHeaderSubnavActive">Collections</li>
+                    <li><a href="/albums.html">Albums</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="pageContent">
+        <div class="centered-content listing collection-listing">
+            <table class="centered-content listing collection-listing">
+                <thead>
+                <tr>
+                    <th>Title</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for collection in collections -%}
+                <tr>
+                    <td>
+                        <a href="/collections/{{collection.title}}.html">{{collection.title}}</a>
+                    </td>
+                </tr>
+                {%- endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
